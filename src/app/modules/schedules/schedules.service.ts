@@ -1,26 +1,41 @@
 import { Injectable } from '@nestjs/common';
-import { CreateScheduleDto } from './dto/create-schedule.dto';
-import { UpdateScheduleDto } from './dto/update-schedule.dto';
+import { Schedule, Prisma } from '@prisma/client';
+import { PrismaService } from '../../../database/prisma/prisma.service';
 
 @Injectable()
 export class SchedulesService {
-  create(createScheduleDto: CreateScheduleDto) {
-    return 'This action adds a new schedule';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(data: Prisma.ScheduleCreateInput): Promise<Schedule> {
+    return this.prisma.schedule.create({
+      data,
+    });
   }
 
-  findAll() {
-    return `This action returns all schedules`;
+  async findAll(): Promise<Schedule[]> {
+    return this.prisma.schedule.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} schedule`;
+  async findOne(id: Prisma.ScheduleWhereUniqueInput): Promise<Schedule | null> {
+    return this.prisma.schedule.findUnique({
+      where: id,
+    });
   }
 
-  update(id: number, updateScheduleDto: UpdateScheduleDto) {
-    return `This action updates a #${id} schedule`;
+  async update(params: {
+    where: Prisma.ScheduleWhereUniqueInput;
+    data: Prisma.ScheduleUpdateInput;
+  }): Promise<Schedule> {
+    const { data, where } = params;
+    return this.prisma.schedule.update({
+      data,
+      where,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} schedule`;
+  async remove(where: Prisma.ScheduleWhereUniqueInput): Promise<Schedule> {
+    return this.prisma.schedule.delete({
+      where,
+    });
   }
 }

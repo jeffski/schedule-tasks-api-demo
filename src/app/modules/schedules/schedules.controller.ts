@@ -1,34 +1,36 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { SchedulesService } from './schedules.service';
-import { CreateScheduleDto } from './dto/create-schedule.dto';
-import { UpdateScheduleDto } from './dto/update-schedule.dto';
+import { Schedule, Prisma } from '@prisma/client';
 
 @Controller('schedules')
 export class SchedulesController {
   constructor(private readonly schedulesService: SchedulesService) {}
 
   @Post()
-  create(@Body() createScheduleDto: CreateScheduleDto) {
-    return this.schedulesService.create(createScheduleDto);
+  async create(@Body() scheduleData: Prisma.ScheduleCreateInput): Promise<Schedule> {
+    return this.schedulesService.create(scheduleData);
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.schedulesService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.schedulesService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return this.schedulesService.findOne({ id: id });
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateScheduleDto: UpdateScheduleDto) {
-    return this.schedulesService.update(+id, updateScheduleDto);
+  async update(@Param('id') id: string, @Body() scheduleData: Prisma.ScheduleCreateInput) {
+    return this.schedulesService.update({
+      where: { id: id },
+      data: scheduleData,
+    });
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.schedulesService.remove(+id);
+  async remove(@Param('id') id: string): Promise<Schedule> {
+    return this.schedulesService.remove({ id: id });
   }
 }
