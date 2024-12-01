@@ -1,14 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TasksService } from './tasks.service';
 import { PrismaService } from '../../../database/prisma/prisma.service';
-import { PrismaClient, Type } from '@prisma/client';
+import { PrismaClient, Task, Type } from '@prisma/client';
 import { mockDeep, DeepMockProxy } from 'jest-mock-extended';
 
 describe('TasksService', () => {
   let service: TasksService;
   let prisma: DeepMockProxy<PrismaClient>;
 
-  const task = {
+  const task: Task = {
     id: '4ffa267c-2724-4c94-a0bb-8576a4e5a0d2',
     account_id: 12345,
     schedule_id: 'e40fe564-2fb5-47b8-a01a-378d70c9b956',
