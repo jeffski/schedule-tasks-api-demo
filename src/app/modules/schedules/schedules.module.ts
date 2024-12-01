@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SchedulesService } from './schedules.service';
 import { SchedulesController } from './schedules.controller';
-import { PrismaService } from 'src/database/prisma/prisma.service';
+import { PrismaService } from '../../../database/prisma/prisma.service';
 
 @Module({
   controllers: [SchedulesController],
