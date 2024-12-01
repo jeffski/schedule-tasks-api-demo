@@ -14,11 +14,19 @@ TODO: Use Prisma to migrate/create database tables
 
 ## Development
 
-Install dependencies locally so that IDE can find required modules.
+Install dependencies locally so that IDE can find required modules:
 
 ```bash
 make modules
 ```
+
+Install new modules:
+
+```bash
+make add <module-name>
+```
+
+Replace <module-name> with the name of the NPM node module.
 
 ## Run tests
 
