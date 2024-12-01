@@ -18,13 +18,16 @@ export class SchedulesController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.schedulesService.findOne({ id: id });
+    return this.schedulesService.findOne({
+      where: { id },
+      include: { tasks: true },
+    });
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() scheduleData: Prisma.ScheduleCreateInput) {
     return this.schedulesService.update({
-      where: { id: id },
+      where: { id },
       data: scheduleData,
     });
   }

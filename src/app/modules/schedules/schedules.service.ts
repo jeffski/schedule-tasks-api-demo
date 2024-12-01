@@ -16,9 +16,14 @@ export class SchedulesService {
     return this.prisma.schedule.findMany();
   }
 
-  async findOne(id: Prisma.ScheduleWhereUniqueInput): Promise<Schedule | null> {
+  async findOne(params: {
+    where: Prisma.ScheduleWhereUniqueInput;
+    include: Prisma.ScheduleInclude;
+  }): Promise<Schedule | null> {
+    const { where, include } = params;
     return this.prisma.schedule.findUnique({
-      where: id,
+      where,
+      include,
     });
   }
 
