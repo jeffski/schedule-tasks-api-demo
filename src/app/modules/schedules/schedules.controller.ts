@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe } from '@nestjs/common';
 import { SchedulesService } from './schedules.service';
 import { Schedule, Prisma } from '@prisma/client';
 
@@ -17,7 +17,7 @@ export class SchedulesController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.schedulesService.findOne({
       where: { id },
       include: { tasks: true },
@@ -25,7 +25,7 @@ export class SchedulesController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() scheduleData: Prisma.ScheduleCreateInput) {
+  async update(@Param('id', ParseUUIDPipe) id: string, @Body() scheduleData: Prisma.ScheduleCreateInput) {
     return this.schedulesService.update({
       where: { id },
       data: scheduleData,
@@ -33,7 +33,7 @@ export class SchedulesController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<Schedule> {
+  async remove(@Param('id', ParseUUIDPipe) id: string): Promise<Schedule> {
     return this.schedulesService.remove({ id: id });
   }
 }

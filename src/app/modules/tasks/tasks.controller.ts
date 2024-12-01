@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task, Prisma } from '@prisma/client';
 
@@ -17,12 +17,12 @@ export class TasksController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.tasksService.findOne({ id: id });
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() taskData: Prisma.TaskCreateInput) {
+  async update(@Param('id', ParseUUIDPipe) id: string, @Body() taskData: Prisma.TaskCreateInput) {
     return this.tasksService.update({
       where: { id: id },
       data: taskData,
@@ -30,7 +30,7 @@ export class TasksController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<Task> {
+  async remove(@Param('id', ParseUUIDPipe) id: string): Promise<Task> {
     return this.tasksService.remove({ id: id });
   }
 }
