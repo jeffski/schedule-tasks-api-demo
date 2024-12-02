@@ -15,7 +15,7 @@ Make is used to run Docker commands. If you don't want to install or run make, y
 
 ## Setup
 
-Run the following steps to set up the database configuration
+Run the following steps to set up the database configuration:
 
 ### Configure .env variables
 
@@ -37,7 +37,7 @@ Run the following commands to install and run the project for the first time.
 make build
 ```
 
-This will setup and start the Nodejs and Postgres database.
+This will setup and start the Nodejs and Postgres containers.
 
 ### Run database migrations
 
@@ -81,7 +81,7 @@ make stop
 make add module=<module-name>
 ```
 
-This installs a new NPM module directly in the Docker container. Replace <module-name> with the name of the NPM node
+This installs a new NPM module directly in the Docker container. Replace `<module-name>` with the name of the NPM node
 module.
 
 ### Run tests
@@ -235,3 +235,17 @@ curl --location --request DELETE 'http://localhost:3000/tasks/:id'
 ```
 
 Replace `:id` with a UUID of a task.
+
+## Todo
+
+Recommended updates and nice to haves/considerations.
+
+- [ ] Validation and HTTP responses (using Pipes and DTOs?)
+- [ ] Transform values like task types to lowercase and more forgiving date formatting
+- [ ] Orphaned tasks, if you delete a schedule, tasks will be orphaned
+- [ ] End to end tests, seed DB or create and test on real values
+- [ ] Authentication/authorisation, in a real world application anyone can CRUD
+- [ ] Environment handling, production vs dev/stage
+- [ ] Deployment handling, CICD pipeline/action
+- [ ] Consider repository pattern
+- [ ] Postman collection
