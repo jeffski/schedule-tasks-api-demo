@@ -68,6 +68,6 @@ describe('SchedulesController', () => {
 
   it('should return a delete a schedule', () => {
     prisma.schedule.delete.mockResolvedValueOnce(schedule);
-    expect(controller.remove('e40fe564-2fb5-47b8-a01a-378d70c9b956')).resolves.toBe(schedule);
+    expect(controller.remove('e40fe564-2fb5-47b8-a01a-378d70c9b956')).toBeUndefined();
   });
 });

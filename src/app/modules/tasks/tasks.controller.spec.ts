@@ -70,6 +70,6 @@ describe('TasksController', () => {
 
   it('should return a delete a task', () => {
     prisma.task.delete.mockResolvedValueOnce(task);
-    expect(controller.remove('4ffa267c-2724-4c94-a0bb-8576a4e5a0d2')).resolves.toBe(task);
+    expect(controller.remove('4ffa267c-2724-4c94-a0bb-8576a4e5a0d2')).toBeUndefined();
   });
 });

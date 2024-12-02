@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, HttpCode } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task, Prisma } from '@prisma/client';
 
@@ -30,7 +30,8 @@ export class TasksController {
   }
 
   @Delete(':id')
-  async remove(@Param('id', ParseUUIDPipe) id: string): Promise<Task> {
-    return this.tasksService.remove({ id: id });
+  @HttpCode(204)
+  remove(@Param('id', ParseUUIDPipe) id: string): void {
+    this.tasksService.remove({ id: id });
   }
 }

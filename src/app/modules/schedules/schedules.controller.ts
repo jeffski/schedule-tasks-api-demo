@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, HttpCode } from '@nestjs/common';
 import { SchedulesService } from './schedules.service';
 import { Schedule, Prisma } from '@prisma/client';
 
@@ -33,7 +33,8 @@ export class SchedulesController {
   }
 
   @Delete(':id')
-  async remove(@Param('id', ParseUUIDPipe) id: string): Promise<Schedule> {
-    return this.schedulesService.remove({ id: id });
+  @HttpCode(204)
+  remove(@Param('id', ParseUUIDPipe) id: string): void {
+    this.schedulesService.remove({ id: id });
   }
 }
