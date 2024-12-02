@@ -242,6 +242,7 @@ Recommended updates and nice to haves/considerations.
 
 - [ ] Validation and HTTP responses (using Pipes and DTOs?)
 - [ ] Transform values like task types to lowercase and more forgiving date formatting
+- [ ] Pagination on lists
 - [ ] Orphaned tasks, if you delete a schedule, tasks will be orphaned
 - [ ] End to end tests, seed DB or create and test on real values
 - [ ] Authentication/authorisation, in a real world application anyone can CRUD
