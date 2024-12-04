@@ -10,7 +10,14 @@ describe('SchedulesController', () => {
   let controller: SchedulesController;
   let prisma: DeepMockProxy<PrismaClient>;
 
-  const schedule: Schedule = {
+  const request: CreateScheduleDto = {
+    account_id: 12345,
+    agent_id: 98765,
+    start_time: new Date(),
+    end_time: new Date(),
+  };
+
+  const response: Schedule = {
     id: 'e40fe564-2fb5-47b8-a01a-378d70c9b956',
     account_id: 12345,
     agent_id: 98765,
@@ -36,39 +43,36 @@ describe('SchedulesController', () => {
   });
 
   it('should create a schedule', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { id, ...rest } = schedule;
-    const data: CreateScheduleDto = {
-      ...rest,
-    };
-
-    prisma.schedule.create.mockResolvedValueOnce(schedule);
-    expect(controller.create(data)).resolves.toBe(schedule);
+    prisma.schedule.create.mockResolvedValueOnce(response);
+    expect(controller.create(request)).resolves.toBe(response);
   });
 
   it('should return a list of schedules', () => {
-    prisma.schedule.findMany.mockResolvedValueOnce([schedule]);
-    expect(controller.findAll()).resolves.toStrictEqual([schedule]);
+    prisma.schedule.findMany.mockResolvedValueOnce([response]);
+    expect(controller.findAll()).resolves.toStrictEqual([response]);
   });
 
   it('should return a schedule by id', () => {
-    prisma.schedule.findUnique.mockResolvedValueOnce(schedule);
-    expect(controller.findOne('e40fe564-2fb5-47b8-a01a-378d70c9b956')).resolves.toBe(schedule);
+    prisma.schedule.findUnique.mockResolvedValueOnce(response);
+    expect(controller.findOne('e40fe564-2fb5-47b8-a01a-378d70c9b956')).resolves.toBe(response);
   });
 
   it('should update a schedule by id', () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { id, ...rest } = schedule;
-    const data: CreateScheduleDto = {
+    const { agent_id, ...rest } = response;
+    const updatedResponse = {
+      agent_id: 56789,
       ...rest,
     };
 
-    prisma.schedule.update.mockResolvedValueOnce(schedule);
-    expect(controller.update('e40fe564-2fb5-47b8-a01a-378d70c9b956', data)).resolves.toBe(schedule);
+    prisma.schedule.update.mockResolvedValueOnce(updatedResponse);
+    expect(controller.update('e40fe564-2fb5-47b8-a01a-378d70c9b956', { agent_id: 56789 })).resolves.toBe(
+      updatedResponse,
+    );
   });
 
   it('should return a delete a schedule', () => {
-    prisma.schedule.delete.mockResolvedValueOnce(schedule);
+    prisma.schedule.delete.mockResolvedValueOnce(response);
     expect(controller.remove('e40fe564-2fb5-47b8-a01a-378d70c9b956')).toBeUndefined();
   });
 });
