@@ -2,8 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { SchedulesController } from './schedules.controller';
 import { SchedulesService } from './schedules.service';
 import { PrismaService } from '../../../database/prisma/prisma.service';
-import { Prisma, PrismaClient, Schedule } from '@prisma/client';
+import { PrismaClient, Schedule } from '@prisma/client';
 import { mockDeep, DeepMockProxy } from 'jest-mock-extended';
+import { CreateScheduleDto } from './dto/create-schedule.dto';
 
 describe('SchedulesController', () => {
   let controller: SchedulesController;
@@ -37,7 +38,7 @@ describe('SchedulesController', () => {
   it('should create a schedule', () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, ...rest } = schedule;
-    const data: Prisma.ScheduleCreateInput = {
+    const data: CreateScheduleDto = {
       ...rest,
     };
 
@@ -58,7 +59,7 @@ describe('SchedulesController', () => {
   it('should update a schedule by id', () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, ...rest } = schedule;
-    const data: Prisma.ScheduleCreateInput = {
+    const data: CreateScheduleDto = {
       ...rest,
     };
 
