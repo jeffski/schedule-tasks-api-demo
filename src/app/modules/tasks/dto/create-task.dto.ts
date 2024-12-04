@@ -1,13 +1,9 @@
 import { Transform, Type } from 'class-transformer';
 import { IsInt, IsDateString, IsUUID, IsEnum, IsString, IsOptional } from 'class-validator';
 import { DateStringTransform } from '../../../../common/transformers/date-string.transformer';
+import { Prisma, Type as TaskType } from '@prisma/client';
 
-export enum TaskType {
-  BREAK = 'BREAK',
-  WORK = 'WORK',
-}
-
-export class CreateTaskDto {
+export class CreateTaskDto implements Prisma.TaskCreateInput {
   @IsInt()
   account_id: number;
 

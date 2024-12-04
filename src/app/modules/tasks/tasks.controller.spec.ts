@@ -4,7 +4,7 @@ import { TasksService } from './tasks.service';
 import { PrismaService } from '../../../database/prisma/prisma.service';
 import { PrismaClient, Task, Type } from '@prisma/client';
 import { mockDeep, DeepMockProxy } from 'jest-mock-extended';
-import { CreateTaskDto, TaskType } from './dto/create-task.dto';
+import { CreateTaskDto } from './dto/create-task.dto';
 
 describe('TasksController', () => {
   let controller: TasksController;
@@ -16,7 +16,7 @@ describe('TasksController', () => {
     schedule: undefined,
     start_time: new Date(),
     duration: 2,
-    type: TaskType.WORK,
+    type: Type.WORK,
   };
 
   const response: Task = {

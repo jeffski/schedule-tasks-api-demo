@@ -1,8 +1,9 @@
 import { Type } from 'class-transformer';
 import { IsInt, IsDateString } from 'class-validator';
 import { DateStringTransform } from '../../../../common/transformers/date-string.transformer';
+import { Prisma } from '@prisma/client';
 
-export class CreateScheduleDto {
+export class CreateScheduleDto implements Prisma.ScheduleCreateInput {
   @IsInt()
   account_id: number;
 

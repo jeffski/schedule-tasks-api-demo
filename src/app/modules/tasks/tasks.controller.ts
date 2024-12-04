@@ -14,17 +14,17 @@ export class TasksController {
   }
 
   @Get()
-  async findAll() {
+  async findAll(): Promise<Task[]> {
     return this.tasksService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseUUIDPipe) id: string) {
+  async findOne(@Param('id', ParseUUIDPipe) id: string): Promise<Task> {
     return this.tasksService.findOne({ id: id });
   }
 
   @Patch(':id')
-  async update(@Param('id', ParseUUIDPipe) id: string, @Body() taskData: UpdateTaskDto) {
+  async update(@Param('id', ParseUUIDPipe) id: string, @Body() taskData: UpdateTaskDto): Promise<Task> {
     return this.tasksService.update({
       where: { id: id },
       data: taskData,
